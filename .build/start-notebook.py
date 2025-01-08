@@ -36,7 +36,8 @@ command.append(jupyter_command)
 if "NOTEBOOK_ARGS" in os.environ:
     command += shlex.split(os.environ["NOTEBOOK_ARGS"])
 
-command.append("--YDocExtension.document_save_delay=0.5 --YDocExtension.file_poll_interval=0.5")
+command.append("--YDocExtension.document_save_delay=0.5")
+command.append("--YDocExtension.file_poll_interval=0.5")
 
 # Pass through any other args we were passed on the command line
 command += sys.argv[1:]
