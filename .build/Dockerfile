@@ -431,7 +431,7 @@ RUN pip install --no-cache-dir nvidia-pyindex && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-RUN pip install --upgrade aim \
+RUN pip install --upgrade aim && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
@@ -442,7 +442,7 @@ RUN mamba install -c nvidia cuda-nvcc=12.3.107 -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-RUN mamba install -n base conda \
+RUN mamba install -n base conda && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
@@ -453,7 +453,7 @@ RUN chmod 777 /aim
 
 RUN ln -s $CONDA_DIR/bin/ptxas /usr/bin/ptxas
 
-RUN mamba install -c conda-forge jupyter-collaboration \
+RUN mamba install -c conda-forge jupyter-collaboration && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
@@ -487,12 +487,13 @@ RUN set -ex \
 RUN set -ex \
  && buildDeps=' \
     jupyterlab_code_formatter \
+    black \
+    isort \
     # jupyterlab_execution_time \
     jupyterlab-github \
     jupyterlab-git \
     jupytext \
     jupyterlab-lsp \
-    pyright \
     nbdime \
     kiteconnect \
     # jupyterlab-nbgather \
@@ -507,7 +508,7 @@ RUN set -ex \
     && fix-permissions "${CONDA_DIR}" \
     && fix-permissions "/home/${NB_USER}"
 
-RUN node 
+RUN npm install -g pyright
 
 # Switch back to studio to avoid accidental container runs as root
 USER $NB_UID
@@ -518,4 +519,9 @@ ENV JUPYTER_TOKEN=$JUPYTER_TOKEN
 COPY jupyter_server_config_token_addendum.py /etc/jupyter/
 RUN cat /etc/jupyter/jupyter_server_config_token_addendum.py >> /etc/jupyter/jupyter_server_config.py
 
+USER root
+
 COPY user-settings/ /home/${NB_USER}/.jupyter/lab/user-settings
+RUN fix-permissions "/home/${NB_USER}"
+
+USER ${NB_UID}
