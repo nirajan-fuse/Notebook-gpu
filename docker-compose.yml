@@ -2,8 +2,7 @@ version: "3.8"
 services:
   gpu-jupyter:
     container_name: gpu-jupyter
-    # build: .build
-    image: "gpu-jupyter-gpu-jupyter:latest"
+    build: .build
     deploy:
       resources:
         reservations:
