@@ -1,0 +1,8 @@
+{
+    "editorConfig": {
+        "autoClosingBrackets": true,
+        "codeFolding": true
+    },
+    "scrollPastEnd": true,
+    "toolbar": []
+}
