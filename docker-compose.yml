@@ -3,6 +3,7 @@ services:
   gpu-jupyter:
     container_name: gpu-jupyter
     build: .build
+    # image: nirajan10/jupyter-gpu-docker:v1.2
     deploy:
       resources:
         reservations:

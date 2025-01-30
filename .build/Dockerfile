@@ -449,15 +449,9 @@ RUN mamba install -n base conda && \
 USER root
 
 RUN mkdir /aim
-RUN chmod 777 /aim
+RUN fix-permissions /aim
 
 RUN ln -s $CONDA_DIR/bin/ptxas /usr/bin/ptxas
-
-RUN mamba install -c conda-forge jupyter-collaboration && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-RUN aim init --repo /aim
 
 USER $NB_UID
 
@@ -490,7 +484,6 @@ RUN set -ex \
     black \
     isort \
     # jupyterlab_execution_time \
-    jupyterlab-github \
     jupyterlab-git \
     jupytext \
     jupyterlab-lsp \
@@ -498,7 +491,7 @@ RUN set -ex \
     kiteconnect \
     # jupyterlab-nbgather \
     jupyterlab-latex \
-    jupyterlab-spellchecker \
+    # jupyterlab-spellchecker \
     # jupyterlab-toc \
     # jupyterlab-google-drive \
     # s3browser \
