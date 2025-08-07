@@ -4,6 +4,7 @@
 import os
 import shlex
 import sys
+import subprocess
 
 # If we are in a JupyterHub, we pass on to `start-singleuser.py` instead so it does the right thing
 if "JUPYTERHUB_API_TOKEN" in os.environ:
@@ -38,6 +39,8 @@ if "NOTEBOOK_ARGS" in os.environ:
 
 command.append("--YDocExtension.document_save_delay=0.5")
 command.append("--YDocExtension.file_poll_interval=0.5")
+
+subprocess.Popen(["/bin/bash", "/temp_file/uv_setup.sh"])
 
 # Pass through any other args we were passed on the command line
 command += sys.argv[1:]

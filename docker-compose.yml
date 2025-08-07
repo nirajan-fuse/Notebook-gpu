@@ -31,7 +31,7 @@ services:
       NB_UID: ${JUPYTER_UID:-1000}
       NB_GID: ${JUPYTER_GID:-1000}
       NOTEBOOK_USER: "nirajan"
-      PASSWORD: "helloworld"
+      PASSWORD: "hello"
       EXPERIMENT-NAME: "nirajan"
     # enable sudo permissions
     user:
